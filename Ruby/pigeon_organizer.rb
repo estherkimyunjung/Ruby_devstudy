@@ -19,18 +19,18 @@ pigeon_data = {
 
 new_hash = {}
 
-pigeon_data.collect do |color_key, color_value|
-  color_value.collect do |name_key, name_value|
-    name_value.collect do |name|
-      if !new_hash[name]
-        new_hash[name] = {}
+pigeon_data.collect do |key, hash_value|
+  hash_value.collect do |inner_key, name_array|
+    name_array.collect do |pigeon_name|
+      if !new_hash[pigeon_name]
+        new_hash[pigeon_name] = {}
       end
-      if !new_hash[name][color_key]
-        new_hash[name][color_key] = []
+      if !new_hash[pigeon_name][key]
+        new_hash[pigeon_name][key] = []
       end
-      new_hash[name][color_key] << name_key.to_s
+      new_hash[pigeon_name][key] << inner_key.to_s
     end 
   end
 end
 
-puts new_hash
+pp new_hash
