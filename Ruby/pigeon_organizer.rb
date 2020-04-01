@@ -16,12 +16,21 @@ pigeon_data = {
     "City Hall" => ["Andrew"]
   }
 }
- 
-pigeon_data.reduce({}) do |memo, pair|
-  pair.reduce({}) do |memo, pair|
-    p memo # First block parameter
-    p pair # Second block parameter
-    memo # Return value for the block. It becomes the memo in the next go-round
-  end # Second block parameter
-  memo # Return value for the block. It becomes the memo in the next go-round
+
+new_hash = {}
+
+pigeon_data.collect do |color_key, color_value|
+  color_value.collect do |name_key, name_value|
+    name_value.collect do |name|
+      if !new_hash[name]
+        new_hash[name] = {}
+      end
+      if !new_hash[name][color_key]
+        new_hash[name][color_key] = []
+      end
+      new_hash[name][color_key] << name_key.to_s
+    end 
+  end
 end
+
+puts new_hash
